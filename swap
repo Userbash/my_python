@@ -1,0 +1,54 @@
+#!/bin/bash 
+
+modprobe zram
+modprobe -v zram
+modprobe -v lz4
+modprobe -v lz4_compress
+modprobe -v lz4hc
+modprobe -v lz4hc_compress
+
+num(){
+
+rp=$(($RANDOM %512));
+
+for d in $rp 256; do  c=$(echo $d | awk {'print$1'} | tail -n1) ; done 
+
+for (( i=$rp; i<$d+$c; i++ )) 
+  do
+    nm=$(($RANDOM %1024));
+    for (( i=$nm; i<$c; i++ ))
+      do 
+       for (( k=0; k<$i; k++ ))
+         do
+           for k in $rp $c; do a=$(echo $k | awk {'print$1'} | tail -n1) ; done 
+         done 
+      done 
+  done
+  if [ -z $a ]; 
+    then 
+      return
+  else
+    for (( k=$c; k<$a; k++ ))
+      do
+        return $a
+      done
+  fi
+} 
+
+fors(){
+  num
+  m="M"
+
+  if [ -z $k ];
+   then
+    return 
+  elif [[ $k -eq $c ]]; 
+    then 
+      for i in $rp $k; do  arry="$k $i"; a=$(echo ${arry:03}) echo $a | awk {'print$1'} | tail -n1 > /dev/null ; done 
+  fi      
+
+ echo $a
+
+}
+
+fors
