@@ -49,6 +49,71 @@ fors(){
 
  echo $a
 
+ rd(){
+  rand=$(($RANDOM %5));
+  { 
+    c=$(($RANDOM %5));
+    d=$((RANDOM %5));
+
+    for (( i=$rand; i<$d+$c; i++ )) 
+      do
+        rand=$(($RANDOM %5));
+      done 
+   }
+ }
+
+step(){
+
+  for i in $c 5 $d; do zctl1=$(zramctl | awk {'print$1'} | tail | grep $i) ; done
+  for i in $c 5 $d; do zctl=$(zramctl | awk {'print$1'} | tail | grep $i) ; done
+}
+  
+  zramctl --find -a lz4hc -t 9 --size $a$m
+  nubers=$(zramctl | awk {'print$4'} | tail | awk {'print$1'} | tail -1)
+  for i in $c 5 $d; do zctl=$(zramctl | awk {'print$1'} | tail | grep $i) ; done
+  rd
+  if [[ $zctl='$!' ]];
+     then
+       while(true)
+        do
+             while (true); 
+              do
+                step
+                if [ -z $zctl1 ];
+                   then
+                    return
+                else
+                  step
+                  if [ -z $zctl ];
+                     then
+                      return
+                  else
+                    step 
+                     if [ $zctl=$zctl1 ];
+                      then
+                        echo "$zctl"
+                        echo "$zctl1"
+                        mkswap $zctl
+                        mkswap $zctl1
+                        swapon -a  --priority 100 $zctl
+                        swapon -a  --priority 100 $zctl1
+                        break
+                      else
+                        return
+                      fi     
+                    fi
+                fi
+                 break
+               done
+            break
+        done  
+   else
+      echo "Zero"   
+  fi    
+  #mkswap /dev/zram$rand
+    
+  #swapon -a  --priority 100 /dev/zram$rand
+ 
 }
 
 fors
