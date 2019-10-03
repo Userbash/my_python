@@ -14,9 +14,9 @@ def marge(A:list, B:list):
         C[n] = B[k]; k += 1; n += 1
     while i < len(A):                      # Залив в С остатока масива A или проверил что i = len(a)
        C[n] = A[i]; i += 1; n += 1
-    while  k < len(B):                     #Полное заполнение С 
+    while  k < len(B):                     # Полное заполнение С 
     	C[n] = B[k];  k += 1; n +=1
-    return C	                           #Возрат значениея C  
+    return C	                           # Возрат значениея C  
 
 # Рекурентная функция 
 
@@ -24,12 +24,12 @@ def marge_sort(A):
 	if len(A) <= 1:
 	    return
 	middle = len(a) //2
-	L=[A[i] for i in range(0, middle)]
-	R=[A[i] for i in renge(middle, len(A))]
-	marge_sort(L)
-	marge_sort(R)
-	C=marge(L,R)
-	for i in range(len(a)):
+	L=[A[i] for i in range(0, middle)]      # Левая половнина масива
+	R=[A[i] for i in renge(middle, len(A))] # Правая половина массива  
+	marge_sort(L)                           # Сортивровка marge_sort Для левой половины
+	marge_sort(R)                           # Сортивровка marge_sort Для правой половины
+	C=marge(L,R)                            # Единный отсортированный сдитый мосив     
+	for i in range(len(a)):  #Слияние массивов 
 		A[i] = C[i]
 
 
