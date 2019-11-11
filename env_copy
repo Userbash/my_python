@@ -1,7 +1,6 @@
 	 . env_per
-	   
-	   mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp &&\
-	   cp -prvf $HOME/tmp $PATCH &&\
+	  
+	   cp -prvf $HOME/tmp/* $PATCH  > /tmp/copy.log &&\
 	   sleep 300 &&\
 	   umount -l $HOME/tmp &&\
 	   rm -rf $HOME/tmp

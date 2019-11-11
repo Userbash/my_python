@@ -7,14 +7,15 @@ backup(){
    . env_per
      if [ -d $HOME/tmp ]
        then 
-         if  [ -z  fin ]
+          mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp 
+         if  [ "$a" -eq "$b" ]
             then
              return
          else    
              dir=$(if [ -d $PATCH ]; then . env_copy; else return; fi) 
              if [ -d  $HOME/tmp ]; then return; else $dir; fi 
           fi 
-    else
+     else
         mkdir $HOME/tmp 
          if backup; then echo "return func backup"; fi
     fi         
