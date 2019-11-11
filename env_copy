@@ -1,18 +1,7 @@
-
-. env_per
-
-copy_rw(){
-   #mount -t cifs //192.168.62.100/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp &&\
-   #cp -rv $HOME/tmp/ $PATCH  &&\
-   #sleep 300 &&\
-   #umount -l  $HOME/tmp&&\
-   #rm -rf $HOME\tmp
-   echo "$HOME/tmp"
-}
-
- if [ -d $HOME/tmp ]
-   then
-     if copy_rw; then echo "copy"; fi
- else
-    return
-  fi       
+	 . env_per
+	   
+	   mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp &&\
+	   cp -prvf $HOME/tmp $PATCH &&\
+	   sleep 300 &&\
+	   umount -l $HOME/tmp &&\
+	   rm -rf $HOME/tmp

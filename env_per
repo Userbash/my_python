@@ -1,7 +1,9 @@
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
 dates=""
+ip="192.168.62.100"
 dt=$(date -dm |awk '{print$2}')
 rp=$(($RANDOM %512))
 dt1=$(date +"%m-%d-%Y");
 sd=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
-fin=$( find $PATCH -type f -newermt 2019-06-01 ! -newermt $sd)
+PATCH=/media/files
+fin=$( find $PATCH -type f -newermt 2019-10-01 ! -newermt $sd )
