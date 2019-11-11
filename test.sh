@@ -16,7 +16,7 @@ num(){
 
 list(){
    
-   mount -t cifs //192.168.62.100/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp &&\
+   mount -t cifs //192.168.XX.1XX/Users1 -o dom=megaflowers.local,username=operator,pass=XXXX $HOME/tmp &&\
    cp -rvf $HOME/tmp/ $PATCH > log &&\
    sleep 300 &&\
    umount -l  $HOME/tmp&&\
