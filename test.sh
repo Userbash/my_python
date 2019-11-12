@@ -1,6 +1,8 @@
 #!/bin/bash
 
-test(){
+. env_per
+
+start(){
  . env_per
 
 backup(){
@@ -8,7 +10,7 @@ backup(){
      if [ -d $HOME/tmp ]
        then 
           mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp 
-         if  [ "$a" -eq "$b" ]
+         if  [ -z "$fin" ] && [ "$a" -eq "$b" ]
             then
              return
          else    
@@ -35,4 +37,58 @@ mass(){
   fi
 }
 
-if $PATCH; then test; fi 
+
+test(){
+
+test_mount(){
+   
+   if [  -z $mount_f ] || [ -n $mount_f ]
+       then
+         echo "Start backup"
+         start
+   else
+         echo "Unmount remote server"
+         umount -l $HOME/tmp
+         rm -rf $HOME/tmp
+   fi
+}
+
+   echo "Anatation test up mount"
+   if [ -z $id ] || [ "$id" -eq 0 ] && test_mount
+     then 
+        echo "Not pid"
+
+   else
+     echo "xD"
+   fi       
+}
+
+for i in list
+  do
+    echo "backup megaflowers..."
+    echo "Look down next options stat script"
+    read -p "Please choose the menu you need : " menu
+     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ];
+       do
+        
+        if [ "$menu" == "start" ]
+           then
+             if [ -d  $PATCH ]; then start; else break; fi
+              elif [ "$menu" == "stop" ]
+                    then
+                      echo ""
+                        break       
+              elif [ "$menu" == "test" ]
+                    then
+                       if [ -d  $PATCH ]; then test; else break; fi
+                            break 
+              elif [ "$menu" == "restart" ]
+                            then
+                              echo ""
+                                break
+        else            
+             break
+        fi          
+
+       done
+    done
