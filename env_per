@@ -1,6 +1,6 @@
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
 dates=""
-ip="192.168.62.100"
+ip=192.168.62.100
 dt=$(date -dm |awk '{print$2}')
 rp=$(($RANDOM %512))
 dt1=$(date +"%m-%d-%Y");

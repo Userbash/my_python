@@ -9,7 +9,7 @@ backup(){
    . env_per
      if [ -d $HOME/tmp ]
        then 
-          mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp 
+          mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=XXXXXXXXX $HOME/tmp 
          if  [ -z "$fin" ] && [ "$a" -eq "$b" ]
             then
              return
@@ -37,7 +37,6 @@ mass(){
   fi
 }
 
-
 test(){
 
 test_mount(){
@@ -63,29 +62,52 @@ test_mount(){
    fi       
 }
 
+ip(){
+  read -p "Leave the ip address unchanged or change ? YSE/NO: " challenge
+    while [ "$challenge" == NO ] || [ "$challenge" == YES ]
+       do
+        if [ "$challenge" == "YES" ]
+           then
+            read -p "Write new ip address : " ip
+               if test; then echo "$ip"; fi
+        elif [ "$challenge" == "NO" ]
+           then 
+            echo "IP address not changed"
+               if start; then echo "$ip"; fi 
+              break     
+        fi      
+       done
+
+
+}
+
 for i in list
   do
     echo "backup megaflowers..."
     echo "Look down next options stat script"
     read -p "Please choose the menu you need : " menu
-     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ];
+     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ] || [ "$menu" == "ip" ];
        do
         
         if [ "$menu" == "start" ]
            then
              if [ -d  $PATCH ]; then start; else break; fi
-              elif [ "$menu" == "stop" ]
-                    then
-                      echo ""
-                        break       
-              elif [ "$menu" == "test" ]
-                    then
-                       if [ -d  $PATCH ]; then test; else break; fi
+        elif [ "$menu" == "stop" ]
+           then
+              echo ""
+               break       
+        elif [ "$menu" == "test" ]
+              then
+                if [ -d  $PATCH ]; then test; else break; fi
                             break 
-              elif [ "$menu" == "restart" ]
-                            then
-                              echo ""
-                                break
+         elif [ "$menu" == "restart" ]
+               then
+                 echo ""
+                  break
+         elif [ "$menu" == "ip" ] 
+               then
+                 if [ -n  $ip ]; then ip; else break; fi
+                   break         
         else            
              break
         fi          
