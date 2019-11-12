@@ -1,15 +1,16 @@
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
 dates=""
 ip=192.168.62.100
+dir=Users1
 dt=$(date -dm |awk '{print$2}')
 rp=$(($RANDOM %512))
 dt1=$(date +"%m-%d-%Y");
 sd=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
-PATCH=/media
+PATCH=/media/files
 fin=$( find $PATCH -type f -newermt 2019-10-01 ! -newermt $sd )
 find $PATCH -type f -newermt 2019-10-01 ! -newermt $sd > /tmp/find.log
 ls -lsh  $HOME/tmp |grep $dt|awk '{print$10}' > /tmp/dates.log
 a=$(wc -l < /tmp/find.log)
 b=$(wc -l < /tmp/dates.log)
 id=$(pidof cp)
- mount_f=$(cat /proc/mounts | grep $ip )
+mount_f=$(cat /proc/mounts | grep $ip )

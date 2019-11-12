@@ -9,7 +9,7 @@ backup(){
    . env_per
      if [ -d $HOME/tmp ]
        then 
-          mount -t cifs //$ip/Users1 -o dom=megaflowers.local,username=operator,pass=XXXXXXXXX $HOME/tmp 
+          mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass= $HOME/tmp 
          if  [ -z "$fin" ] && [ "$a" -eq "$b" ]
             then
              return
@@ -62,13 +62,15 @@ test_mount(){
    fi       
 }
 
-ip(){
-  read -p "Leave the ip address unchanged or change ? YSE/NO: " challenge
+config(){
+  read -p "Do you want to change the default configurations of the program ? YSE/NO: " challenge
     while [ "$challenge" == NO ] || [ "$challenge" == YES ]
        do
         if [ "$challenge" == "YES" ]
            then
-            read -p "Write new ip address : " ip
+            read -p "Enter a new ip address : " ip
+            read -p "Keep the directory you want to copy : " dir
+            read -p "Indicate the place where to copy : " PATCH
                if test; then echo "$ip"; fi
         elif [ "$challenge" == "NO" ]
            then 
@@ -86,7 +88,7 @@ for i in list
     echo "backup megaflowers..."
     echo "Look down next options stat script"
     read -p "Please choose the menu you need : " menu
-     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ] || [ "$menu" == "ip" ];
+     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ] || [ "$menu" == "config" ];
        do
         
         if [ "$menu" == "start" ]
@@ -104,9 +106,9 @@ for i in list
                then
                  echo ""
                   break
-         elif [ "$menu" == "ip" ] 
+         elif [ "$menu" == "config" ] 
                then
-                 if [ -n  $ip ]; then ip; else break; fi
+                 if [ -n  $ip ]; then config; else break; fi
                    break         
         else            
              break
