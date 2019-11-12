@@ -6,11 +6,12 @@ dir=Users1
 #Date Formation
 dt=$(date -dm |awk '{print$2}')
 dt1=$(date +"%m-%d-%Y");
+dt2=$(date -d "-56 day" +"%Y-%m-%d")
 sd=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
 
 # Date Search
-fin=$( find $PATCH -type f -newermt 2019-10-01 ! -newermt $sd )
-find $PATCH -type f -newermt 2019-10-01 ! -newermt $sd > /tmp/find.log
+fin=$( find $PATCH -type f -newermt $dt2 ! -newermt $sd )
+find $PATCH -type f -newermt $dt2 ! -newermt $sd > /tmp/find.log
 ls -lsh  $HOME/tmp |grep $dt|awk '{print$10}' > /tmp/dates.log
 
 #Line Alignment

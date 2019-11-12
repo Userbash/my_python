@@ -9,7 +9,7 @@ backup(){
    . env_per
      if [ -d $HOME/tmp ]
        then 
-          mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass= $HOME/tmp 
+          mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp 
          if  [ -z "$fin" ] && [ "$a" -eq "$b" ]
             then
              return
