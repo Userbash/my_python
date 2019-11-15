@@ -3,38 +3,47 @@
 . env_per
 
 start(){
- . env_per
+ . env_private
 
 backup(){
-   . env_per
+
      if [ -d $HOME/tmp ]
-       then 
-          mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp 
-         if  [ -z "$fin" ] && [ "$a" -eq "$b" ]
-            then
+       then  
+          if [ -n $data_time_mes ];
+          then
+            #Монтирование и последущия зависищия логика
+            . env_mount
+          else   
              return
-         else    
-             dir=$(if [ -d $PATCH ]; then . env_copy; else return; fi) 
-             if [ -d  $HOME/tmp ]; then return; else $dir; fi 
-          fi 
+          fi
+
+            if  [ -n $files_data ] && [  '$files_find' == '$files_data' ] 
+               then
+               # Вернул True  
+                  return
+             else 
+               # Верннул False
+               dir=$(if [ -d $PATCH ]; then . env_copy; else return; fi) 
+               if [ -d  $HOME/tmp ]; then return; else $dir; fi
+            fi    
      else
+        #Не выполнилось 0 условий call back        
         mkdir $HOME/tmp 
-         if backup; then echo "return func backup"; fi
-    fi         
+        if backup; then echo "return func backup"; fi
+     fi          
 }
 
 mass(){
   files=($dates)
         if [ -z $files ]; then backup; else echo "OK"; exit 0; fi 	
 } 
-  
-  if [ -z $HOME ];
-  	 then
-  	 	return
-  else
-  	  if dates=$(ls -lsh  $HOME |grep $dt|awk '{print$10}'); then mass;  fi
 
-  fi
+    if [ -z $HOME ];
+  	   then
+  	 	  return
+    else
+  	    if dates=$(ls -lsh  $HOME |grep $data_time_mes|awk '{print$10}'); then mass;  fi
+    fi
 }
 
 test(){
