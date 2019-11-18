@@ -15,5 +15,5 @@ date_minus=$(date -d "-28 day" +"%Y-%m-%d")
 revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
 
 # Date Search
-find_home=$( find $HOME -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" )
-find $PATCH -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/find.log
+#find_home=$( find $HOME -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" )
+#find $PATCH -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/find.log

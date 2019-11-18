@@ -1,12 +1,20 @@
 	 . env_per
-	   #Test
-	   #cp -prvf $HOME/tmp/* $PATCH  > /tmp/copy.log &&\
-	   #cat /tmp/dates.log | while read file_name; do echo "$file_name" $PATCH; done
-       cat /tmp/dates.log | while read file_name; 
-       do
-         list=$(wc -l < /tmp/dates.log)
-          for i in $(cat /tmp/dates.log); do cp -prvf $i $PATCH; done
-       done
-	   #cat /tmp/dates.log | xargs -d "\n" cp -prvf --target-directory=$PATCH
+
+	   #UP TEST
+       list=$(for i in $(ls -d /root/tmp/*); do echo $i |  sed -e 's|/root/tmp/||g'; done)
+         echo "$list" | while read line
+            do 
+              cat /tmp/dates.log  | while read name
+                 do
+                  if echo "$name"| grep "$line"
+                     then
+                       cp -prvf $HOME/tmp/$name $PATCH > $PATCH/backup.log
+                  else
+                      echo ""
+                  fi     
+                   done
+            done
+
 	   sleep 5 &&\
 	   umount -l $HOME/tmp 
+	   rm -rf $HOME/tmp

@@ -6,7 +6,7 @@ PATCH=/media/files
 mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp
             
 ##logic
-ls -lsh  $HOME/tmp |grep $data_time_mes|awk '{print$10}' > /tmp/dates.log
+ls -lsh  $HOME/tmp |grep $data_time_mes|awk '{print$10}'  | sort -r > /tmp/dates.log
 
 #Date Formation
 data_time_mes=$(date -dm |awk '{print$2}')
@@ -15,7 +15,7 @@ date_minus=$(date -d "-28 day" +"%Y-%m-%d")
 revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
 
 #new write dates.log
-find $HOME/tmp -type d  -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/dates.log
+#find $HOME/tmp -type d  -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/dates.log
 
 #Line Alignment
 files_find=$(wc -l < /tmp/find.log)
