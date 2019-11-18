@@ -76,32 +76,17 @@ test_mount(){
    fi       
 }
 
-for i in list
-  do
-    echo "backup megaflowers..."
-    echo "Look down next options stat script"
-    read -p "Please choose the menu you need : " menu
-     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ];
-       do
-        
-        if [ "$menu" == "start" ]
-           then
-             if [ -d  $PATCH ]; then start; else break; fi
-        elif [ "$menu" == "stop" ]
-           then
-              echo ""
-               break       
-        elif [ "$menu" == "test" ]
-              then
-                if [ -d  $PATCH ]; then test; else break; fi
-                            break 
-         elif [ "$menu" == "restart" ]
-               then
-                 echo ""
-                  break        
-        else            
-             break
-        fi          
-
-       done
-    done
+case "$1" in
+   start)
+      echo "Starting backup"
+      start;
+      ;;
+   test)
+      echo "Test backup"
+      test;
+      ;;
+   *)
+     echo "Usage: /usr/local/bin/start.sh start|test"
+     exit 1
+     ;;
+esac
