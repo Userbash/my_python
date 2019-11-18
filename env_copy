@@ -1,4 +1,19 @@
-	 . env_per
+
+#Way
+HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
+PATCH=/media/ds01/192.168.62.100/users/
+
+#Date Formation
+    data_time_mes=$(date -dm |awk '{print$2}')
+    date_format=$(date +"%m-%d-%Y");
+    date_minus=$(date -d "-28 day" +"%Y-%m-%d")
+    revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
+
+#new write dates.log
+     find $HOME/tmp -type d  -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/dates.log
+
+#Line Alignment
+files_data=$(wc -l < /tmp/dates.log)
 
 	   #UP TEST
        list=$(for i in $(ls -d /root/tmp/*); do echo $i |  sed -e 's|/root/tmp/||g'; done)
@@ -8,8 +23,7 @@
                  do
                   if echo "$name"| grep "$line"
                      then
-                       cp -prvf $HOME/tmp/$name $PATCH > $PATCH/backup.log
-                  else
+                       cp -prvf $HOME/tmp/$name $PATCH
                       echo ""
                   fi     
                    done

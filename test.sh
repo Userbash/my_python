@@ -17,7 +17,7 @@ backup(){
              return
           fi
 
-            if  [ -n $files_data ] && [  '$files_find' == '$files_data' ] 
+            if  [ -n $files_data ] || [ -n $files_find ] && [  '$files_find' == '$files_data' ] 
                then
                # Вернул True  
                   return
@@ -29,7 +29,7 @@ backup(){
      else
         #Не выполнилось 0 условий call back        
         mkdir $HOME/tmp 
-        if backup; then echo "return func backup"; fi
+        if echo "return func backup"; then backup ; fi
      fi          
 }
 

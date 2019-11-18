@@ -1,22 +1,11 @@
 #Way
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
-PATCH=/media/files
+#Way
+HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
+PATCH=/media/ds01/192.168.62.100/users/
 
 #Mount
 mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp
             
 ##logic
 ls -lsh  $HOME/tmp |grep $data_time_mes|awk '{print$10}'  | sort -r > /tmp/dates.log
-
-#Date Formation
-data_time_mes=$(date -dm |awk '{print$2}')
-date_format=$(date +"%m-%d-%Y");
-date_minus=$(date -d "-28 day" +"%Y-%m-%d")
-revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
-
-#new write dates.log
-#find $HOME/tmp -type d  -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/dates.log
-
-#Line Alignment
-files_find=$(wc -l < /tmp/find.log)
-files_dates=$(wc -l < /tmp/dates.log)
