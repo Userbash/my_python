@@ -5,13 +5,11 @@ PATCH=/media/ds01/192.168.62.100/users
 
 #Date Formation
     data_time_mes=$(date -dm |awk '{print$2}')
-    date_format=$(date +"%m-%d-%Y");
+    date_format=$(date +"%Y-%m-%d");
     date_minus=$(date -d "-28 day" +"%Y-%m-%d")
-    revers_data=$(echo $date_format | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\1-\2/')
-
+    
 #new write dates.log
-     #find $HOME/tmp -type d  -newermt "$date_minus" ! -newermt "$date_format" > /tmp/dates.log
-      find $HOME/tmp -type d -newermt $date_minus ! -newermt $revers_data > /tmp/dates.log
+      find $HOME/tmp -type d -newermt $date_minus ! -newermt $date_format > /tmp/dates.log
 
 #Line Alignment
 files_data=$(wc -l < /tmp/dates.log)

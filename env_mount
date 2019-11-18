@@ -4,8 +4,11 @@ HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
 PATCH=/media/ds01/192.168.62.100/users
 
+#SERVER
+ip=192.168.62.100
+dir=Users1
+
 #Mount
-#mount -t cifs //192.168.62.112/megaflowers-bakup/192.168.62.100/users -o username=byte,pass=b18625412E! $PATCH
 mount -t cifs //$ip/$dir -o dom=megaflowers.local,username=operator,pass=Zz123456 $HOME/tmp
             
 ##logic

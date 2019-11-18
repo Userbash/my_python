@@ -6,13 +6,11 @@ PATCH=/media/ds01/192.168.62.100/users/
 
 #Date Formation
 data_time_mes=$(date -dm |awk '{print$2}')
-date_format=$(date +"%m-%d-%Y");
+date_format=$(date +"%Y-%m-%d");
 date_minus=$(date -d "-28 day" +"%Y-%m-%d")
-revers_data=$(echo $date_format | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\1-\2/')
 
 # Date Search
- #find $PATCH -newermt "$date_minus" ! -newermt "$revers_data" > /tmp/find.log
- find $PATCH -type d -newermt $date_minus ! -newermt $revers_data > /tmp/find.log
+ find $PATCH -type d -newermt $date_minus ! -newermt $date_format > /tmp/find.log
 	
 #Line Alignment
 files_find=$(wc -l < /tmp/find.log)

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+##Анатацция
+##Срипт базовго копирования  пользовотельских папок по выборке
+
 . env_per
 
 start(){
@@ -34,6 +37,7 @@ backup(){
 }
 
 mass(){
+  #Прроверка помещение первого значения в переменную
   files=($dates)
         if [ -z $files ]; then backup; else echo "OK"; exit 0; fi 	
 } 
@@ -49,6 +53,7 @@ mass(){
 test(){
 
 test_mount(){
+  #Тестирование на наличие сомнтированных эдементов
    
    if [  -z $mount_f ] || [ -n $mount_f ]
        then
@@ -71,33 +76,12 @@ test_mount(){
    fi       
 }
 
-config(){
-  read -p "Do you want to change the default configurations of the program ? YSE/NO: " challenge
-    while [ "$challenge" == NO ] || [ "$challenge" == YES ]
-       do
-        if [ "$challenge" == "YES" ]
-           then
-            read -p "Enter a new ip address : " ip
-            read -p "Keep the directory you want to copy : " dir
-            read -p "Indicate the place where to copy : " PATCH
-               if test; then echo "$ip"; fi
-        elif [ "$challenge" == "NO" ]
-           then 
-            echo "IP address not changed"
-               if start; then echo "$ip"; fi 
-              break     
-        fi      
-       done
-
-
-}
-
 for i in list
   do
     echo "backup megaflowers..."
     echo "Look down next options stat script"
     read -p "Please choose the menu you need : " menu
-     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ] || [ "$menu" == "config" ];
+     while [ "$menu" == "start" ] || [ "$menu" == "stop" ] || [ "$menu" == "test" ] || [ "$menu" == "restart" ];
        do
         
         if [ "$menu" == "start" ]
@@ -114,11 +98,7 @@ for i in list
          elif [ "$menu" == "restart" ]
                then
                  echo ""
-                  break
-         elif [ "$menu" == "config" ] 
-               then
-                 if [ -n  $ip ]; then config; else break; fi
-                   break         
+                  break        
         else            
              break
         fi          
