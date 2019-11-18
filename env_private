@@ -8,10 +8,11 @@ PATCH=/media/ds01/192.168.62.100/users/
 data_time_mes=$(date -dm |awk '{print$2}')
 date_format=$(date +"%m-%d-%Y");
 date_minus=$(date -d "-28 day" +"%Y-%m-%d")
-revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
+revers_data=$(echo $date_format | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\1-\2/')
 
 # Date Search
- find $PATCH -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/find.log
+ #find $PATCH -newermt "$date_minus" ! -newermt "$revers_data" > /tmp/find.log
+ find $PATCH -type d -newermt $date_minus ! -newermt $revers_data > /tmp/find.log
 	
 #Line Alignment
 files_find=$(wc -l < /tmp/find.log)

@@ -1,29 +1,31 @@
 
 #Way
 HOME=$(echo | awk -v home=$HOME '{print "My home is " home}' |awk {'print$4'});
-PATCH=/media/ds01/192.168.62.100/users/
+PATCH=/media/ds01/192.168.62.100/users
 
 #Date Formation
     data_time_mes=$(date -dm |awk '{print$2}')
     date_format=$(date +"%m-%d-%Y");
     date_minus=$(date -d "-28 day" +"%Y-%m-%d")
-    revers_data=$(echo $dt1 | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\2-\1/')
+    revers_data=$(echo $date_format | sed -e 's/\(.*\)-\(.*\)-\(.*\)/\3-\1-\2/')
 
 #new write dates.log
-     find $HOME/tmp -type d  -newermt "$date_minus 00:00:59" ! -newermt "$evers_data 23:59:59" > /tmp/dates.log
+     #find $HOME/tmp -type d  -newermt "$date_minus" ! -newermt "$date_format" > /tmp/dates.log
+      find $HOME/tmp -type d -newermt $date_minus ! -newermt $revers_data > /tmp/dates.log
 
 #Line Alignment
 files_data=$(wc -l < /tmp/dates.log)
 
 	   #UP TEST
-       list=$(for i in $(ls -d /root/tmp/*); do echo $i |  sed -e 's|/root/tmp/||g'; done)
-         echo "$list" | while read line
+       name=$(for i in $(ls -d /root/tmp/*); do echo $i |  sed -e 's|/root/tmp/||g'; done)
+         echo "$name" | while read line
             do 
-              cat /tmp/dates.log  | while read name
+              cat /tmp/dates.log  | while read list
                  do
-                  if echo "$name"| grep "$line"
+                  if echo "$list"| grep "$name"
                      then
-                       cp -prvf $HOME/tmp/$name $PATCH
+                       cp -prvf $HOME/tmp/$name /media/ds01/192.168.62.100/users/
+                   else     
                       echo ""
                   fi     
                    done
@@ -31,4 +33,5 @@ files_data=$(wc -l < /tmp/dates.log)
 
 	   sleep 5 &&\
 	   umount -l $HOME/tmp 
+	   umount -l /media/ds01/192.168.62.100/users
 	   rm -rf $HOME/tmp

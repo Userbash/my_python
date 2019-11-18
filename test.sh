@@ -42,7 +42,7 @@ mass(){
   	   then
   	 	  return
     else
-  	    if dates=$(ls -lsh  $PATCH |grep $data_time_mes|awk '{print$10}'); then mass;  fi
+  	    if dates=$(ls -lsh $PATCH |grep $data_time_mes|awk '{print$10}'); then mass;  fi
     fi
 }
 
