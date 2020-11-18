@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#global
+iname=$(ip -o link show | sed -rn '/^[0-9]+: en/{s/.: ([^:]*):.*/\1/p}')
+range1=$(($RANDOM %9))
+range2=$(($RANDOM %9))
+text=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-f' | head -c 2)
+text1=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-f' | head -c 1)
+text2=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-f' | head -c 1)
+text3=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-f' | head -c 2)
+
+function range {
+for rand in $range1 $range2; do  let "rand ++"; done
+ 
+  for (( i=$rand; i>0; i++ )) 
+    do
+    if [ "$i" -le $range1 ];
+     then 	
+        for tmp in $i $range1 $range ; do rand=$(echo $tmp | awk {'print$1'} | tail -n1) ; done
+    else
+       break
+     fi     
+    done         
+}
+
+function num_1 {
+  for tmp2 in ${allThreads[@]};do ac=$(echo "$tmp1$allThreads"); done
+  for (( t=$tmp2; t<10; t++ ))
+   do
+    for tmp3 in $t $tmp2 $range1; do  v=$(echo $tmp3 | awk {'print$1'} | tail -n1) ; done
+    for tmp4 in ${allThreads[@]};do dc=$(echo "$v$tmp3"); done
+   done 
+  
+   for (( t=$tmp4; t<10; t++ ))
+    do
+     for tmp5 in $tmp2 $tmp3 $tmp4; do  v1=$(echo $tmp5 | awk {'print$1'} | tail -n1) ; done
+     for tmp6 in ${allThreads[@]};do bc=$(echo "$v1$text2"); done
+    done 
+
+}
+
+function range_num {
+if range; then
+   if [ -z $rand ];
+     then 
+      echo "Error $rand == Zero"
+   else     
+      for rag_if in 0 $rand $range1; do allThreads=($rand $rag_if $range1 $range2); done	  
+      for tmp1 in ${allThreads[@]}; do num_1 tmp1; done
+   fi  
+fi
+}
+
+if range_num; 
+  then 
+    arp -d -a
+        ip neigh flush all
+        ip ro flush all
+        ifconfig $iname down
+        macchanger -m 00:$ac:$bc:$text:$dc:$text3 $iname
+        #macchanger -m 00:15:5D:3E:5C:03 $iname
+        ifconfig $iname up
+        arp -d -a
+        ip neigh flush all
+        ip ro flush all
