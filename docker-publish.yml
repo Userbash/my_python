@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 test(){
 for t in ${allThreads[@]}; do
-if [ -z "$t" ] && [ -n "$t" ]
-then
-bash $0
-elif [ "$t" -eq 0 ]; then
-echo ""
-else
-echo "$t 2"
-fi
+  if [ -z "$t" ] && [ -n "$t" ]
+    then
+      bash $0
+  elif [ "$t" -eq 0 ]; then
+      echo ""
+  else
+      echo "$t 2"
+  fi
 done
 }
 main(){
 if [ "$a" -eq 0 ] || [ -n $a ] && [ "$rand" -eq 0 ] || [ -n "$rand" ] ;
 then
-for (( i=$rand; i<$a; i++ ))
-do
-allThreads=($i $a)
-test [{allThreads[@]}];
-done
+ for (( i=$rand; i<$a; i++ ))
+  do
+   allThreads=($i $a)
+   test [{allThreads[@]}];
+  done
 else
-exit 1
+ exit 1
 fi
 }
 
